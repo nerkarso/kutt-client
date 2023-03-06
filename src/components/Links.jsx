@@ -2,7 +2,10 @@ import {
   Alert,
   Anchor,
   Badge,
-  Container, Skeleton, Table
+  Container,
+  Group,
+  Skeleton,
+  Table,
 } from '@mantine/core';
 import { useQuery } from '@tanstack/react-query';
 import { SHORT_BASE_URL } from '../config/env';
@@ -15,7 +18,7 @@ export function Links() {
         <thead>
           <tr>
             <th>Short URL</th>
-            <th style={{textAlign:'right'}}>Views</th>
+            <th style={{ textAlign: 'right' }}>Views</th>
           </tr>
         </thead>
         <tbody>
@@ -29,39 +32,47 @@ export function Links() {
 function Renderer() {
   const { isLoading, error, data } = useQuery(['links'], fetchLinks);
 
-  if (isLoading)
+  if (!isLoading)
     return (
       <>
         <tr>
           <td>
             <Skeleton height={16} width="70%" />
           </td>
-          <td>
-            <Skeleton height={16} width={40} />
+          <td width={60}>
+            <Group position="right">
+              <Skeleton height={16} width={40} />
+            </Group>
           </td>
         </tr>
         <tr>
           <td>
             <Skeleton height={16} width="85%" />
           </td>
-          <td>
-            <Skeleton height={16} width={60} />
+          <td width={60}>
+            <Group position="right">
+              <Skeleton height={16} width={60} />
+            </Group>
           </td>
         </tr>
         <tr>
           <td>
             <Skeleton height={16} width="45%" />
           </td>
-          <td>
-            <Skeleton height={16} width={30} />
+          <td width={60}>
+            <Group position="right">
+              <Skeleton height={16} width={30} />
+            </Group>
           </td>
         </tr>
         <tr>
           <td>
             <Skeleton height={16} width="55%" />
           </td>
-          <td>
-            <Skeleton height={16} width={40} />
+          <td width={60}>
+            <Group position="right">
+              <Skeleton height={16} width={40} />
+            </Group>
           </td>
         </tr>
       </>
@@ -75,10 +86,9 @@ function Renderer() {
     );
   }
 
-
   return (
     <>
-       {data.data.map((item) => {
+      {data.data.map((item) => {
         const shortUrl = `${SHORT_BASE_URL}/${item.address}`;
         return (
           <tr key={item.id}>
@@ -87,7 +97,7 @@ function Renderer() {
                 {shortUrl}
               </Anchor>
             </td>
-            <td width={60}>
+            <td style={{ textAlign: 'right' }} width={60}>
               <Badge>{item.visit_count}</Badge>
             </td>
           </tr>
