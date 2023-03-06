@@ -1,3 +1,1 @@
-# kutt-client
-
-[Edit on StackBlitz ⚡️](https://stackblitz.com/edit/vitejs-vite-tmktfd)
+# Kutt.it
