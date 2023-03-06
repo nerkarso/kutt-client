@@ -32,7 +32,7 @@ export function Links() {
 function Renderer() {
   const { isLoading, error, data } = useQuery(['links'], fetchLinks);
 
-  if (!isLoading)
+  if (isLoading)
     return (
       <>
         <tr>
@@ -80,15 +80,31 @@ function Renderer() {
 
   if (error) {
     return (
-      <Alert title="Error" color="red" mt="sm">
-        {error?.message}
-      </Alert>
+      <tr>
+        <td colSpan={2}>
+          <Alert title="Error" color="red" mt="sm">
+            {error?.message}
+          </Alert>
+        </td>
+      </tr>
+    );
+  }
+
+  if (!data?.data || data?.data?.length === 0) {
+    return (
+      <tr>
+        <td colSpan={2}>
+          <Alert color="cyan" mt="sm">
+            It's empty here
+          </Alert>
+        </td>
+      </tr>
     );
   }
 
   return (
     <>
-      {data.data.map((item) => {
+      {data?.data?.map((item) => {
         const shortUrl = `${SHORT_BASE_URL}/${item.address}`;
         return (
           <tr key={item.id}>
